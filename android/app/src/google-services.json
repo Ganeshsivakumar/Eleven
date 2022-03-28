@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "572965142995",
+    "project_id": "eleven-5bacf",
+    "storage_bucket": "eleven-5bacf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572965142995:android:6c0792eecd623e5ac4ef26",
+        "android_client_info": {
+          "package_name": "com.example.vasoolraj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572965142995-35jccd0ghlu4fa9eol43543eh58lqhpu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwaWbKo4WSYDWVkLVlpB80yFQ0uL7MJZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572965142995-35jccd0ghlu4fa9eol43543eh58lqhpu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
