@@ -1,18 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vasoolraj/borrowerDetails.dart';
-import 'constants.dart';
-import 'package:get/get.dart';
-
-//enum cancelStream { UNSUBSCRIBE_STATE, SUBSCIBE_STATE }
-
-borrowerCard() {
-  //cancelStream currentState = cancelStream.SUBSCIBE_STATE;
-  return GestureDetector(
-      child: kBorrowerCardProperties(),
-      onTap: () {
-        Get.to(() => Bname());
-      });
-}
 
 class LoginFormButton extends StatelessWidget {
   LoginFormButton({required this.buttontext, required this.onPressed});
@@ -42,10 +28,16 @@ class LoginFormButton extends StatelessWidget {
   }
 }
 
-class SaveButton extends StatelessWidget {
+class SaveButton extends StatefulWidget {
   SaveButton({required this.onPressed});
 
   VoidCallback onPressed;
+
+  @override
+  State<SaveButton> createState() => _SaveButtonState();
+}
+
+class _SaveButtonState extends State<SaveButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -55,32 +47,7 @@ class SaveButton extends StatelessWidget {
       ),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(const Color(0xff607d8b))),
-      onPressed: onPressed,
+      onPressed: widget.onPressed,
     );
   }
 }
-
-
-
-/*
- addborrowerfab(context) {
-    return FloatingActionButton(
-      backgroundColor: const Color(0xff8eacbb),
-      onPressed: () {
-       
-        addBorrowerToList();
-      },
-      child: const Icon(Icons.add),
-    );
-    //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-  }
-
-*/
-
-
-
-
-
-
-
-
