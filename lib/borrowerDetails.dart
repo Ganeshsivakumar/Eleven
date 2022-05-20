@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'borrowerList.dart';
 import 'constants.dart';
 import 'widgets.dart';
+import 'borrowerCard.dart';
+import 'package:provider/provider.dart';
+import 'updateNameProvider.dart';
 
 class BorrowerDetails extends StatefulWidget {
   const BorrowerDetails({Key? key}) : super(key: key);
@@ -17,17 +22,21 @@ class amountPaidClass {
 }
 
 var amountpaid = <amountPaidClass>[];
-TextEditingController amountPaidController = TextEditingController();
-TextEditingController paidDateController = TextEditingController();
+late String amountPaid;
+late String paidDate;
 
 class _BorrowerDetailsState extends State<BorrowerDetails> {
-  addamountpaidtolist() {
+  /*addamountpaidtolist() {
     setState(() {
       amountpaid.add(amountPaidClass(
           amount: amountPaidController.text, date: paidDateController.text));
     });
   }
+  */
+  late String amount;
 
+  final _firestoree = FirebaseFirestore.instance;
+  final _firestore = FirebaseFirestore.instance;
   addpaymentsdatadialog(BuildContext context) {
     String? newBorrowerName;
     return showDialog(
@@ -42,12 +51,16 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
                   children: [
                     kAddPaymentsDataText,
                     TextField(
-                      controller: amountPaidController,
+                      onChanged: ((value) {
+                        amountPaid = value;
+                      }),
                       decoration: kTextFieldDecocation.copyWith(
                           hintText: 'Amount Paid'),
                     ),
                     TextField(
-                      controller: paidDateController,
+                      onChanged: (value) {
+                        paidDate = value;
+                      },
                       decoration:
                           kTextFieldDecocation.copyWith(hintText: 'Paid Date'),
                     ),
@@ -56,7 +69,19 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
                         child: Builder(
                           builder: (context) {
                             return SaveButton(onPressed: () {
-                              addamountpaidtolist();
+                              _firestoree
+                                  .collection('lender')
+                                  .doc(auth.currentUser?.email)
+                                  .collection('paymnet data')
+                                  .add({
+                                'amount': amountPaid,
+                                'paid date': paidDate,
+                                'name': Provider.of<UpdateNameProvider>(context,
+                                        listen: false)
+                                    .bname
+                              });
+
+                              //addamountpaidtolist();
                               Navigator.pop(context);
                             });
                           },
@@ -90,11 +115,12 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
             backgroundColor: const Color(0xff8eacbb),
             centerTitle: false,
             title: Text(
-              borrowerNameController.text,
+              Provider.of<UpdateNameProvider>(context).bname,
               style: const TextStyle(fontSize: 20),
             ),
           ),
-          body: Center(
+          body: Container()
+          /* Center(
             child: Container(
               child: DataTable(
                   columns: const [
@@ -107,8 +133,10 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
                             DataCell(Text(amountPaidClass.date)),
                           ])))
                       .toList()),
+                      
             ),
-          )),
+          )*/
+          ),
     );
   }
 }

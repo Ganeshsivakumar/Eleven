@@ -43,8 +43,3 @@ const kEnterOtpText = Text(
       color: Color.fromARGB(255, 78, 77, 77),
       fontSize: 15),
 );
-
-const kLoginFormButtonTextStyle = TextStyle(fontSize: 16, color: Colors.white);
-const KLoginFormButtonSizedBox = SizedBox(
-  height: 20,
-);

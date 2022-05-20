@@ -51,3 +51,49 @@ class _SaveButtonState extends State<SaveButton> {
     );
   }
 }
+
+class LoginButton extends StatefulWidget {
+  LoginButton({required this.onPressed});
+  VoidCallback onPressed;
+
+  @override
+  State<LoginButton> createState() => _LoginButtonState();
+}
+
+class _LoginButtonState extends State<LoginButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 100,
+        child: TextButton(
+          child: const Text('Login'),
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all(const Color(0xff607d8b))),
+          onPressed: widget.onPressed,
+        ));
+  }
+}
+
+class SignButton extends StatefulWidget {
+  SignButton({required this.onPressed});
+  VoidCallback onPressed;
+
+  @override
+  State<SignButton> createState() => _SignButtonState();
+}
+
+class _SignButtonState extends State<SignButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 100,
+        child: TextButton(
+          child: const Text('Sign In'),
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all(const Color(0xff607d8b))),
+          onPressed: widget.onPressed,
+        ));
+  }
+}

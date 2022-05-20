@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'borrowerListProvider.dart';
@@ -7,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'widgets.dart';
 import 'constants.dart';
 import 'package:vasoolraj/borrowerListProvider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BorrowerList extends StatefulWidget {
   const BorrowerList({
@@ -18,11 +18,36 @@ class BorrowerList extends StatefulWidget {
 }
 
 TextEditingController borrowerNameController = TextEditingController();
+final auth = FirebaseAuth.instance;
+late int bindex;
+late String ndscreenname;
 
 class _BorrowerListState extends State<BorrowerList> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentLender();
+  }
+
   final _firestore = FirebaseFirestore.instance;
+  void getCurrentLender() async {
+    try {
+      final Lender = await auth.currentUser;
+      if (Lender != null) {
+        //final uid = _auth.currentUser?.uid;
+        //_firestore.collection('lender').add({'Email': Lender.email});
+        // print(_auth.currentUser!.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //final _firestore = FirebaseFirestore.instance;
 
   static String id = 'borrowerlistscreen';
+  final _firestoree = FirebaseFirestore.instance;
 
   addborrowerdialog(BuildContext context) {
     String? newBorrowerName;
@@ -49,10 +74,19 @@ class _BorrowerListState extends State<BorrowerList> {
                             return SaveButton(
                               onPressed: () {
                                 setState(() {
+                                  //final uid = auth.currentUser?.uid;
+                                  _firestore
+                                      .collection('lender')
+                                      .doc(auth.currentUser?.email)
+                                      .collection('borrowers')
+                                      .add({
+                                    'Name': borrowerNameController.text,
+                                  });
                                   Provider.of<BorrowersListProvider>(context,
                                           listen: false)
                                       .addBorrower(borrowerNameController.text);
                                 });
+                                borrowerNameController.clear();
                                 Navigator.pop(context);
                               },
                             );
@@ -95,6 +129,7 @@ class _BorrowerListState extends State<BorrowerList> {
                 body: ListView.builder(
                     itemCount: BorrowersListProvider.borrowerList.length,
                     itemBuilder: ((context, index) {
+                      // bindex = index;
                       return BorrowersListProvider.borrowerList[index];
                     })),
               ),
