@@ -60,7 +60,7 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('lender')
-                        .doc(auth.currentUser!.email)
+                        .doc(auth.currentUser!.uid)
                         .collection('paymentData')
                         .where('name',
                             isEqualTo: Provider.of<UpdateNameProvider>(context,
@@ -73,13 +73,15 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
 
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        print(snapshot.error);
+                        Get.snackbar('Error',
+                            "Check internet connection and try again later");
                       }
                       if (!snapshot.hasData) {
                         return const Center(
                             child: CircularProgressIndicator(
-                          backgroundColor: Color(0xff8eacbb),
-                        ));
+                                //backgroundColor: Color(0xff607d8b),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xff8eacbb))));
                       } else if (snapshot.data!.docs.isEmpty) {
                         return const Center(
                           child: Text(

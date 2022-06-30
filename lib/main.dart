@@ -1,11 +1,12 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:vasoolraj/authScreen.dart';
-import 'borrowerListProvider.dart';
-import 'borrowerList.dart';
-import 'package:vasoolraj/updateNameProvider.dart';
+import 'package:vasoolraj/Widgets/splashScreen.dart';
+import 'Screens/borrowerList.dart';
+import 'package:vasoolraj/Provider/updateNameProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,29 +15,23 @@ void main() async {
 }
 
 // ignore: camel_case_types
-class vasoolraj extends StatelessWidget {
-  const vasoolraj({Key? key}) : super(key: key);
+class vasoolraj extends StatefulWidget {
+  @override
+  State<vasoolraj> createState() => _vasoolrajState();
+}
 
+class _vasoolrajState extends State<vasoolraj> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => BorrowersListProvider()),
+        //ChangeNotifierProvider(create: (context) => BorrowersListProvider()),
         ChangeNotifierProvider(create: (context) => UpdateNameProvider())
       ],
       child: GetMaterialApp(
-        home: const Scaffold(body: AuthScreen()),
+        home: const Scaffold(body: SplashScreen()),
         routes: {'borrowerlistscreenroute': (context) => const BorrowerList()},
       ),
     );
   }
 }
-
-/*
-GetMaterialApp(
-            home: const Scaffold(body: AuthScreen()),
-            routes: {
-              'borrowerlistscreenroute': (context) => const BorrowerList()
-            },
-          );
-          */

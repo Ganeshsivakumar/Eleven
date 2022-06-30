@@ -1,32 +1,6 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-
-class LoginFormButton extends StatelessWidget {
-  LoginFormButton({required this.buttontext, required this.onPressed});
-
-  final buttontext;
-  VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 150),
-      child: TextButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all(const Color(0xff607d8b))),
-        child: SizedBox(
-          width: 100,
-          height: 40,
-          child: Align(
-            alignment: Alignment.center,
-            child: buttontext,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class SaveButton extends StatefulWidget {
   SaveButton({required this.onPressed});
@@ -42,87 +16,52 @@ class _SaveButtonState extends State<SaveButton> {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(const Color(0xff607d8b))),
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          backgroundColor: MaterialStateProperty.all(const Color(0xFF607D8B))),
       onPressed: widget.onPressed,
       child: const Text(
-        'Save',
+        'Add',
         style: TextStyle(color: Colors.white),
       ),
     );
   }
 }
 
-class AuthButton extends StatefulWidget {
-  AuthButton({required this.onPressed, required this.title});
+class RoundedRectangleButton extends StatefulWidget {
+  RoundedRectangleButton({required this.onPressed, required this.title});
   VoidCallback onPressed;
   String title;
 
   @override
-  State<AuthButton> createState() => _AuthButtonState();
+  State<RoundedRectangleButton> createState() => _RoundedRectangleButtonState();
 }
 
-class _AuthButtonState extends State<AuthButton> {
+class _RoundedRectangleButtonState extends State<RoundedRectangleButton> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 150,
-        height: 45,
-        child: TextButton(
-          style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff607d8b))),
-          onPressed: widget.onPressed,
-          child: Text(
-            widget.title,
-            style: const TextStyle(color: Colors.white),
-          ),
-        ));
-  }
-}
-
-class LoginButton extends StatefulWidget {
-  LoginButton({required this.onPressed});
-  VoidCallback onPressed;
-
-  @override
-  State<LoginButton> createState() => _LoginButtonState();
-}
-
-class _LoginButtonState extends State<LoginButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 100,
-        child: TextButton(
-          child: const Text('Login'),
-          style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff607d8b))),
-          onPressed: widget.onPressed,
-        ));
-  }
-}
-
-class SignButton extends StatefulWidget {
-  SignButton({required this.onPressed});
-  VoidCallback onPressed;
-
-  @override
-  State<SignButton> createState() => _SignButtonState();
-}
-
-class _SignButtonState extends State<SignButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 100,
-        child: TextButton(
-          child: const Text('Sign In'),
-          style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff607d8b))),
-          onPressed: widget.onPressed,
-        ));
+    return Material(
+      child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 1),
+              blurRadius: 6,
+              color: Colors.black.withOpacity(0.3),
+            ),
+          ]),
+          width: 150,
+          height: 45,
+          child: TextButton(
+            style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                backgroundColor:
+                    MaterialStateProperty.all(const Color(0xff607d8b))),
+            onPressed: widget.onPressed,
+            child: Text(
+              widget.title,
+              style: const TextStyle(color: Colors.white),
+            ),
+          )),
+    );
   }
 }
 

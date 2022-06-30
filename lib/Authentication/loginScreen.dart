@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 50,
             ),
-            AuthButton(
+            RoundedRectangleButton(
                 onPressed: () async {
                   try {
                     final user = await _auth.signInWithEmailAndPassword(

@@ -75,7 +75,7 @@ class _NavDrawerState extends State<NavDrawer> {
               title: const Text('Share App'),
               onTap: () {
                 Share.share(
-                    'Hello, Check out Eleven app, I am using Eleven to manage my borrowers interest payment data');
+                    'Hello, Check out Eleven app, I am using Eleven to manage my borrowers interest payment data. Download Now: https://bit.ly/eleven_app');
               },
             )
           ],

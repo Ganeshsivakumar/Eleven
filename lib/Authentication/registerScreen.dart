@@ -56,7 +56,7 @@ class _RigesterScreenState extends State<RigesterScreen> {
               const SizedBox(
                 height: 50,
               ),
-              AuthButton(
+              RoundedRectangleButton(
                   onPressed: () async {
                     print(email);
                     print(password);

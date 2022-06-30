@@ -4,9 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:vasoolraj/Authentication/authScreen.dart';
-import 'package:vasoolraj/Authentication/loginScreen.dart';
-import 'package:vasoolraj/Provider/borrowerListProvider.dart';
 import 'package:vasoolraj/Widgets/widgets.dart';
 import 'package:vasoolraj/constants.dart';
 import 'package:vasoolraj/Widgets/borrowerCard.dart';
@@ -31,7 +28,29 @@ class _BorrowerListState extends State<BorrowerList> {
 
   static String id = 'borrowerlistscreen';
   final _firestoree = FirebaseFirestore.instance;
+  final _firestorem = FirebaseFirestore.instance;
+  final _fireestoree = FirebaseFirestore.instance;
+  // bool isThere = false;
 
+  /*checkBorrowerAlreadyExists(String textfieldname) async {
+    await for (var snapshots in _firestorem
+        .collection('lender')
+        .doc(auth.currentUser?.uid)
+        .collection('borrowers')
+        .snapshots()) {
+      for (var message in snapshots.docs) {
+        bool isThere;
+        if (message.data().containsValue(textfieldname)) {
+          return isThere = true;
+        } else {
+          return isThere = false;
+        }
+      }
+    }
+  }
+  */
+
+  //dialog box to get input ['Borrower Name'] from user.
   addborrowerdialog(BuildContext context) {
     String? newBorrowerName;
     return showDialog(
@@ -77,25 +96,31 @@ class _BorrowerListState extends State<BorrowerList> {
                         child: Builder(
                           builder: (context) {
                             return SaveButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (borrowerNameController.text.isEmpty) {
                                   Get.snackbar(
                                       'Error:', "Borrower Name can't be empty",
                                       backgroundColor: Colors.red);
-                                } else {
+                                } /*else if (await checkBorrowerAlreadyExists(
+                                    borrowerNameController.text)) {
+                                  Get.snackbar('Error',
+                                      'Borrower Name alread exists, Enter new name',
+                                      backgroundColor: Colors.red);
+                                } */
+                                else {
                                   try {
                                     _firestore
                                         .collection('lender')
-                                        .doc(auth.currentUser?.email)
+                                        .doc(auth.currentUser?.uid)
                                         .collection('borrowers')
                                         .add({
                                       'Name': borrowerNameController.text,
                                     });
-                                    borrowerNameController.clear();
-                                    Navigator.pop(context);
                                   } catch (e) {
                                     Get.snackbar('Error', e.toString());
                                   }
+                                  borrowerNameController.clear();
+                                  Navigator.pop(context);
                                 }
                               },
                             );
@@ -111,7 +136,7 @@ class _BorrowerListState extends State<BorrowerList> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BorrowersListProvider>(
+    return Consumer(
       builder: ((context, BorrowersListProvider, child) {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -144,17 +169,18 @@ class _BorrowerListState extends State<BorrowerList> {
                   body: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('lender')
-                        .doc(auth.currentUser!.email)
+                        .doc(auth.currentUser!.uid)
                         .collection('borrowers')
                         .orderBy('Name', descending: false)
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       try {
                         if (!snapshot.hasData) {
-                          return const Center(
+                          return Center(
                               child: CircularProgressIndicator(
-                            backgroundColor: Color(0xff8eacbb),
-                          ));
+                                  // backgroundColor: Color(0xff607d8b),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xff8eacbb))));
                         } else if (snapshot.data!.docs.isEmpty) {
                           return Center(
                             child: const Text(
@@ -162,6 +188,9 @@ class _BorrowerListState extends State<BorrowerList> {
                               style: TextStyle(fontSize: 20),
                             ),
                           );
+                        } else if (snapshot.hasError) {
+                          Get.snackbar('Error',
+                              "Check internet connection and try again later");
                         }
                       } catch (e) {
                         Get.snackbar('Error', e.toString());

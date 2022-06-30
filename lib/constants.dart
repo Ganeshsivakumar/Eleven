@@ -27,19 +27,15 @@ const kAddPaymentsDataText = Align(
   ),
 );
 
-const kEnterMobileNumberText = Text(
-  'Hello, Enter your mobile number to get Otp',
-  style: TextStyle(
-    fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 78, 77, 77),
-    fontSize: 21,
-  ),
+const kNewUserText = Text(
+  'New User ?',
+  style: TextStyle(fontSize: 20),
 );
-
-const kEnterOtpText = Text(
-  'Enter the otp sent to your mobile number',
-  style: TextStyle(
-      fontWeight: FontWeight.bold,
-      color: Color.fromARGB(255, 78, 77, 77),
-      fontSize: 15),
+const kLoginText = Text(
+  'Existing User ?',
+  style: TextStyle(fontSize: 18),
+);
+const welcomeText = Text(
+  'Hello! Welcome.',
+  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
 );

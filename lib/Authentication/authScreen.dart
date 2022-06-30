@@ -31,7 +31,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  AuthButton(
+                  RoundedRectangleButton(
                     onPressed: () {
                       Get.to(() => const RigesterScreen());
                     },
@@ -42,10 +42,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     thickness: 4,
                   ),
                   kLoginText,
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
-                  AuthButton(
+                  RoundedRectangleButton(
                       onPressed: () {
                         Get.to(() => const LoginScreen());
                       },
