@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:vasoolraj/Widgets/widgets.dart';
-import 'package:vasoolraj/constants.dart';
-import 'package:vasoolraj/Widgets/borrowerCard.dart';
+import 'package:Eleven/Widgets/widgets.dart';
+import 'package:Eleven/constants.dart';
+import 'package:Eleven/Widgets/borrowerCard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vasoolraj/Widgets/navDrawer.dart';
+import 'package:Eleven/Widgets/navDrawer.dart';
 
 class BorrowerList extends StatefulWidget {
   const BorrowerList({
@@ -139,69 +139,72 @@ class _BorrowerListState extends State<BorrowerList> {
     return Consumer(
       builder: ((context, BorrowersListProvider, child) {
         return MaterialApp(
-            debugShowCheckedModeBanner: false,
             home: SafeArea(
-              child: Scaffold(
-                  appBar: AppBar(
-                    leading: IconButton(
-                      icon: Icon(Icons.menu),
+          child: Scaffold(
+              appBar: AppBar(
+                leading: IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Get.to(() => NavDrawer());
+                  },
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: IconButton(
+                      color: Colors.white,
                       onPressed: () {
-                        Get.to(() => NavDrawer());
+                        addborrowerdialog(context);
                       },
+                      icon: const Icon(Icons.add),
                     ),
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: IconButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            addborrowerdialog(context);
-                          },
-                          icon: const Icon(Icons.add),
-                        ),
-                      ),
-                    ],
-                    toolbarHeight: 70,
-                    backgroundColor: const Color(0xff8eacbb),
-                    centerTitle: false,
-                    title: const Text('Borrowers List'),
                   ),
-                  body: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('lender')
-                        .doc(auth.currentUser!.uid)
-                        .collection('borrowers')
-                        .orderBy('Name', descending: false)
-                        .snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      try {
-                        if (!snapshot.hasData) {
-                          return Center(
-                              child: CircularProgressIndicator(
-                                  // backgroundColor: Color(0xff607d8b),
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Color(0xff8eacbb))));
-                        } else if (snapshot.data!.docs.isEmpty) {
-                          return Center(
-                            child: const Text(
-                              'Press  +  to add borrower',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          Get.snackbar('Error',
-                              "Check internet connection and try again later");
-                        }
-                      } catch (e) {
-                        Get.snackbar('Error', e.toString());
-                      }
-                      return ListView(
-                          children: snapshot.data!.docs.map((data) {
-                        return BorrowerCard(BorrowerName: data['Name']);
-                      }).toList());
-                    },
-                  )),
-            ));
+                ],
+                toolbarHeight: 70,
+                backgroundColor: const Color(0xff8eacbb),
+                centerTitle: false,
+                title: const Text('Borrowers List'),
+              ),
+              body: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('lender')
+                    .doc(auth.currentUser!.uid)
+                    .collection('borrowers')
+                    .orderBy('Name', descending: false)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  try {
+                    if (!snapshot.hasData) {
+                      return Center(
+                          child: CircularProgressIndicator(
+                              // backgroundColor: Color(0xff607d8b),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xff8eacbb))));
+                    } else if (snapshot.data!.docs.isEmpty) {
+                      return Center(
+                        child: const Text(
+                          'Press  +  to add borrower',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      );
+                    } /*else if (snapshot.hasError) {
+                      Get.snackbar('Error',
+                          "Check internet connection and try again later");
+                    }*/
+                  } catch (e) {
+                    Get.snackbar('Error', e.toString());
+                  }
+                  return Scrollbar(
+                    thickness: 7.0,
+                    radius: Radius.circular(10),
+                    child: ListView(
+                        children: snapshot.data!.docs.map((data) {
+                      return BorrowerCard(BorrowerName: data['Name']);
+                    }).toList()),
+                  );
+                },
+              )),
+        ));
       }),
     );
   }

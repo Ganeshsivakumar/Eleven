@@ -32,10 +32,10 @@ const kNewUserText = Text(
   style: TextStyle(fontSize: 20),
 );
 const kLoginText = Text(
-  'Existing User ?',
-  style: TextStyle(fontSize: 18),
+  'Old User ?',
+  style: TextStyle(fontSize: 20),
 );
 const welcomeText = Text(
-  'Hello! Welcome.',
+  'Hello Welcome :)',
   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
 );

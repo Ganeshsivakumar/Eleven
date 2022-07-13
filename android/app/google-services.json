@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "572965142995",
+    "firebase_url": "https://eleven-5bacf-default-rtdb.firebaseio.com",
     "project_id": "eleven-5bacf",
     "storage_bucket": "eleven-5bacf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:572965142995:android:6c0792eecd623e5ac4ef26",
+        "mobilesdk_app_id": "1:572965142995:android:022fb95da71e8eaec4ef26",
         "android_client_info": {
-          "package_name": "com.example.vasoolraj"
+          "package_name": "com.ganesh.elevenapp"
         }
       },
       "oauth_client": [

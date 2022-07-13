@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:vasoolraj/Provider/updateNameProvider.dart';
-import 'package:vasoolraj/Screens/borrowerDetails.dart';
-import 'package:vasoolraj/Screens/borrowerList.dart';
-import 'package:vasoolraj/Widgets/widgets.dart';
-import 'package:vasoolraj/constants.dart';
+import 'package:Eleven/Provider/updateNameProvider.dart';
+import 'package:Eleven/Screens/borrowerDetails.dart';
+import 'package:Eleven/Screens/borrowerList.dart';
+import 'package:Eleven/Widgets/widgets.dart';
+import 'package:Eleven/constants.dart';
 
 class AddpaymentsData extends StatefulWidget {
   const AddpaymentsData({Key? key}) : super(key: key);

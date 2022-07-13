@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "vasoolraj",
+            "name": "eleven",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "vasoolraj (profile mode)",
+            "name": "eleven (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "vasoolraj (release mode)",
+            "name": "eleven (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

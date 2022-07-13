@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:vasoolraj/Screens/addPaymentsData.dart';
-import 'package:vasoolraj/Screens/borrowerList.dart';
+import 'package:Eleven/Screens/addPaymentsData.dart';
+import 'package:Eleven/Screens/borrowerList.dart';
 import 'package:provider/provider.dart';
-import 'package:vasoolraj/Provider/updateNameProvider.dart';
+import 'package:Eleven/Provider/updateNameProvider.dart';
 import 'package:get/get.dart';
 
 class BorrowerDetails extends StatefulWidget {
@@ -72,10 +72,10 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
                     //.snapshots(),
 
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
+                      /* if (snapshot.hasError) {
                         Get.snackbar('Error',
                             "Check internet connection and try again later");
-                      }
+                      }*/
                       if (!snapshot.hasData) {
                         return const Center(
                             child: CircularProgressIndicator(
@@ -90,29 +90,41 @@ class _BorrowerDetailsState extends State<BorrowerDetails> {
                           ),
                         );
                       } else {
-                        return Center(
+                        return Scrollbar(
+                          thickness: 7.0,
+                          radius: Radius.circular(10),
+                          child: Center(
+                              child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
                             child: Container(
-                          child: DataTable(
-                              columns: const [
-                                DataColumn(
-                                    label: Text(
-                                  'Amount',
-                                  style: TextStyle(fontSize: 20),
-                                )),
-                                DataColumn(
-                                    label: Text('Paid Date',
-                                        style: TextStyle(fontSize: 20)))
-                              ],
-                              rows: snapshot.data!.docs.map((data) {
-                                return DataRow(cells: [
-                                  DataCell(Text(data['amount'],
-                                      style: const TextStyle(fontSize: 17))),
-                                  DataCell(Text(
-                                      formatPaidDate(data['paidDate']),
-                                      style: const TextStyle(fontSize: 17)))
-                                ]);
-                              }).toList()),
-                        ));
+                              child: DataTable(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey.shade300)),
+                                  dataRowHeight: 60,
+                                  columns: const [
+                                    DataColumn(
+                                        label: Text(
+                                      'Amount',
+                                      style: TextStyle(fontSize: 20),
+                                    )),
+                                    DataColumn(
+                                        label: Text('Paid Date',
+                                            style: TextStyle(fontSize: 20)))
+                                  ],
+                                  rows: snapshot.data!.docs.map((data) {
+                                    return DataRow(cells: [
+                                      DataCell(Text(data['amount'],
+                                          style:
+                                              const TextStyle(fontSize: 17))),
+                                      DataCell(Text(
+                                          formatPaidDate(data['paidDate']),
+                                          style: const TextStyle(fontSize: 17)))
+                                    ]);
+                                  }).toList()),
+                            ),
+                          )),
+                        );
                       }
                     }))));
   }

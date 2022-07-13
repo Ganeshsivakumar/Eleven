@@ -1,26 +1,24 @@
 // ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:vasoolraj/Widgets/splashScreen.dart';
-import 'Screens/borrowerList.dart';
-import 'package:vasoolraj/Provider/updateNameProvider.dart';
+import 'package:Eleven/Widgets/splashScreen.dart';
+import 'package:Eleven/Provider/updateNameProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(vasoolraj());
+  runApp(eleven());
 }
 
 // ignore: camel_case_types
-class vasoolraj extends StatefulWidget {
+class eleven extends StatefulWidget {
   @override
-  State<vasoolraj> createState() => _vasoolrajState();
+  State<eleven> createState() => _elevenState();
 }
 
-class _vasoolrajState extends State<vasoolraj> {
+class _elevenState extends State<eleven> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,8 +27,8 @@ class _vasoolrajState extends State<vasoolraj> {
         ChangeNotifierProvider(create: (context) => UpdateNameProvider())
       ],
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         home: const Scaffold(body: SplashScreen()),
-        routes: {'borrowerlistscreenroute': (context) => const BorrowerList()},
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vasoolraj/Screens/borrowerDetails.dart';
+import 'package:Eleven/Screens/borrowerDetails.dart';
 import 'package:provider/provider.dart';
-import 'package:vasoolraj/Provider/updateNameProvider.dart';
+import 'package:Eleven/Provider/updateNameProvider.dart';
 
 // ignore: non_constant_identifier_names
 
@@ -20,11 +20,9 @@ class _BorrowerCardState extends State<BorrowerCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(widget.BorrowerName);
         Provider.of<UpdateNameProvider>(context, listen: false)
             .update(widget.BorrowerName);
         Get.to(() => BorrowerDetails());
-        //print(firebasename);
       },
       child: Align(
           child: Container(

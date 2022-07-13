@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:get/get.dart';
-import 'package:vasoolraj/Authentication/authScreen.dart';
-import 'package:vasoolraj/Screens/borrowerList.dart';
-import 'package:vasoolraj/Widgets/widgets.dart';
+import 'package:Eleven/Authentication/authScreen.dart';
+import 'package:Eleven/Screens/borrowerList.dart';
+import 'package:Eleven/Widgets/widgets.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class NavDrawer extends StatefulWidget {
 
 class _NavDrawerState extends State<NavDrawer> {
   final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,11 +46,9 @@ class _NavDrawerState extends State<NavDrawer> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Log Out'),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                setState(() {
-                  Get.to(() => const AuthScreen());
-                });
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Get.to(() => const AuthScreen());
               },
             ),
             Divider(),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vasoolraj/Authentication/authScreen.dart';
-import 'package:vasoolraj/Screens/borrowerList.dart';
-import 'package:vasoolraj/constants.dart';
+import 'package:Eleven/Authentication/authScreen.dart';
+import 'package:Eleven/Screens/borrowerList.dart';
+import 'package:Eleven/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vasoolraj/Widgets/widgets.dart';
+import 'package:Eleven/Widgets/widgets.dart';
 
 class RigesterScreen extends StatefulWidget {
   const RigesterScreen({Key? key}) : super(key: key);
@@ -58,8 +58,6 @@ class _RigesterScreenState extends State<RigesterScreen> {
               ),
               RoundedRectangleButton(
                   onPressed: () async {
-                    print(email);
-                    print(password);
                     try {
                       final newLender =
                           await _auth.createUserWithEmailAndPassword(

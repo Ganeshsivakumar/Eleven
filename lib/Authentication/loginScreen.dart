@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vasoolraj/Authentication/authScreen.dart';
-import 'package:vasoolraj/constants.dart';
-import 'package:vasoolraj/Widgets/widgets.dart';
+import 'package:Eleven/Authentication/authScreen.dart';
+import 'package:Eleven/constants.dart';
+import 'package:Eleven/Widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:vasoolraj/Screens/borrowerList.dart';
+import 'package:Eleven/Screens/borrowerList.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
