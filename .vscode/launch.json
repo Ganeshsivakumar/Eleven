@@ -5,15 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "eleven",
+            "name": "Eleven",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "eleven (profile mode)",
+            "name": "Eleven-Dev",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "program": "lib/main.dart",
+            "args": ["--flavor","development","--target","lib/main.dart"],
+            
         },
         {
             "name": "eleven (release mode)",

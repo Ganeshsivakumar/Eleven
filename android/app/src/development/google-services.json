@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "551340109028",
+    "project_id": "eleven-dev-4da06",
+    "storage_bucket": "eleven-dev-4da06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551340109028:android:5529d2888c2dbcc34190f1",
+        "android_client_info": {
+          "package_name": "com.ganesh.elevenapp.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551340109028-e96h6m2ng8fuon2afje8888ik3klguhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1D9-Sk8wy--gfJjYflSLPMT_GnDiggIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551340109028-e96h6m2ng8fuon2afje8888ik3klguhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
