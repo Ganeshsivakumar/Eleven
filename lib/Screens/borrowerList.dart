@@ -9,6 +9,7 @@ import 'package:Eleven/constants.dart';
 import 'package:Eleven/Widgets/borrowerCard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Eleven/Widgets/navDrawer.dart';
+import 'package:Eleven/Widgets/dialogbox.dart';
 
 class BorrowerList extends StatefulWidget {
   const BorrowerList({
@@ -21,6 +22,7 @@ class BorrowerList extends StatefulWidget {
 
 TextEditingController borrowerNameController = TextEditingController();
 final auth = FirebaseAuth.instance;
+final deleteborrowerinstance = FirebaseFirestore.instance;
 
 class _BorrowerListState extends State<BorrowerList> {
   @override
@@ -57,77 +59,74 @@ class _BorrowerListState extends State<BorrowerList> {
         context: context,
         builder: (context) {
           return Builder(builder: (context) {
-            return AlertDialog(
-              content: Container(
-                height: 180,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        kAddbText,
-                        Padding(
-                          padding: const EdgeInsets.only(left: 40, bottom: 30),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.close,
-                              size: 33,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+            return DialogBox(
+              childwidget: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      kAddbText,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40, bottom: 30),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            size: 33,
                           ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                      ],
-                    ),
-                    TextField(
-                      textCapitalization: TextCapitalization.words,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp('[a-z A-Z]')),
-                        FilteringTextInputFormatter.deny(RegExp('[0-9]')),
-                        LengthLimitingTextInputFormatter(20)
-                      ],
-                      controller: borrowerNameController,
-                      decoration: kTextFieldDecocation.copyWith(
-                          hintText: 'Borrower Name'),
-                    ),
-                    Align(
-                        alignment: Alignment.bottomRight,
-                        child: Builder(
-                          builder: (context) {
-                            return SaveButton(
-                              onPressed: () async {
-                                if (borrowerNameController.text.isEmpty) {
-                                  Get.snackbar(
-                                      'Error:', "Borrower Name can't be empty",
-                                      backgroundColor: Colors.red);
-                                } /*else if (await checkBorrowerAlreadyExists(
+                      ),
+                    ],
+                  ),
+                  TextField(
+                    textCapitalization: TextCapitalization.words,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp('[a-z A-Z]')),
+                      FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+                      LengthLimitingTextInputFormatter(20)
+                    ],
+                    controller: borrowerNameController,
+                    decoration: kTextFieldDecocation.copyWith(
+                        hintText: 'Borrower Name'),
+                  ),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: Builder(
+                        builder: (context) {
+                          return SaveButton(
+                            onPressed: () async {
+                              if (borrowerNameController.text.isEmpty) {
+                                Get.snackbar(
+                                    'Error:', "Borrower Name can't be empty",
+                                    backgroundColor: Colors.red);
+                              } /*else if (await checkBorrowerAlreadyExists(
                                     borrowerNameController.text)) {
                                   Get.snackbar('Error',
                                       'Borrower Name alread exists, Enter new name',
                                       backgroundColor: Colors.red);
                                 } */
-                                else {
-                                  try {
-                                    _firestore
-                                        .collection('lender')
-                                        .doc(auth.currentUser?.uid)
-                                        .collection('borrowers')
-                                        .add({
-                                      'Name': borrowerNameController.text,
-                                    });
-                                  } catch (e) {
-                                    Get.snackbar('Error', e.toString());
-                                  }
-                                  borrowerNameController.clear();
-                                  Navigator.pop(context);
+                              else {
+                                try {
+                                  _firestore
+                                      .collection('lender')
+                                      .doc(auth.currentUser?.uid)
+                                      .collection('borrowers')
+                                      .add({
+                                    'Name': borrowerNameController.text,
+                                  });
+                                } catch (e) {
+                                  Get.snackbar('Error', e.toString());
                                 }
-                              },
-                            );
-                          },
-                        ))
-                  ],
-                ),
+                                borrowerNameController.clear();
+                                Navigator.pop(context);
+                              }
+                            },
+                          );
+                        },
+                      ))
+                ],
               ),
             );
           });
@@ -209,3 +208,95 @@ class _BorrowerListState extends State<BorrowerList> {
     );
   }
 }
+
+
+
+/*
+Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        kAddbText,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40, bottom: 30),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              size: 33,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    TextField(
+                      textCapitalization: TextCapitalization.words,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('[a-z A-Z]')),
+                        FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+                        LengthLimitingTextInputFormatter(20)
+                      ],
+                      controller: borrowerNameController,
+                      decoration: kTextFieldDecocation.copyWith(
+                          hintText: 'Borrower Name'),
+                    ),
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: Builder(
+                          builder: (context) {
+                            return SaveButton(
+                              onPressed: () async {
+                                if (borrowerNameController.text.isEmpty) {
+                                  Get.snackbar(
+                                      'Error:', "Borrower Name can't be empty",
+                                      backgroundColor: Colors.red);
+                                } /*else if (await checkBorrowerAlreadyExists(
+                                    borrowerNameController.text)) {
+                                  Get.snackbar('Error',
+                                      'Borrower Name alread exists, Enter new name',
+                                      backgroundColor: Colors.red);
+                                } */
+                                else {
+                                  try {
+                                    _firestore
+                                        .collection('lender')
+                                        .doc(auth.currentUser?.uid)
+                                        .collection('borrowers')
+                                        .add({
+                                      'Name': borrowerNameController.text,
+                                    });
+                                  } catch (e) {
+                                    Get.snackbar('Error', e.toString());
+                                  }
+                                  borrowerNameController.clear();
+                                  Navigator.pop(context);
+                                }
+                              },
+                            );
+                          },
+                        ))
+                  ],
+                ),
+                */
+
+
+/*
+ addborrowerdialog(BuildContext context) {
+    String? newBorrowerName;
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Builder(builder: (context) {
+            return AlertDialog(
+              content: Container(
+                height: 180,
+                child: 
+              ),
+            );
+          });
+        });
+  }
+  */

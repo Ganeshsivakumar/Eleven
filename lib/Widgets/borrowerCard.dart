@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:Eleven/Screens/borrowerDetails.dart';
 import 'package:provider/provider.dart';
 import 'package:Eleven/Provider/updateNameProvider.dart';
+import 'package:Eleven/Screens/borrowerList.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore: non_constant_identifier_names
 
@@ -19,6 +21,17 @@ class _BorrowerCardState extends State<BorrowerCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () async {
+        //  Provider.of<UpdateNameProvider>(context, listen: false)
+        //.update(widget.BorrowerName);
+        await deleteborrowerinstance
+            .collection('lender')
+            .doc(auth.currentUser?.uid)
+            .collection('borrowers')
+            .where('Name', isEqualTo: widget.BorrowerName)
+            .get()
+            .then((snapshot) => snapshot.docs.first.reference.delete());
+      },
       onTap: () {
         Provider.of<UpdateNameProvider>(context, listen: false)
             .update(widget.BorrowerName);
