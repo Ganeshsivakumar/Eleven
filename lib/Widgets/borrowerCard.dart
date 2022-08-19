@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:Eleven/Provider/updateNameProvider.dart';
 import 'package:Eleven/Screens/borrowerList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Eleven/Widgets/dialogbox.dart';
+import 'package:Eleven/Widgets/widgets.dart';
 
 // ignore: non_constant_identifier_names
 
@@ -21,16 +23,65 @@ class _BorrowerCardState extends State<BorrowerCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () async {
+      onLongPress: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Builder(builder: ((context) {
+                return DialogBox(
+                    //boxwidth: 180,
+                    boxheight: 100,
+                    childwidget: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text("Are you sure You want to delete " +
+                            widget.BorrowerName +
+                            " from the borrowers list?"),
+                        //SizedBox(
+                        //  height: 15,
+                        //),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ConsentButton(
+                              onPressed: () {
+                                Get.to(BorrowerList());
+                                //Get.to(() => const BorrowerList());
+                              },
+                              buttontext: "No",
+                            ),
+                            ConsentButton(
+                              onPressed: () {
+                                deleteborrowerinstance
+                                    .collection('lender')
+                                    .doc(auth.currentUser?.uid)
+                                    .collection('borrowers')
+                                    .where('Name',
+                                        isEqualTo: widget.BorrowerName)
+                                    .get()
+                                    .then((snapshot) =>
+                                        snapshot.docs.first.reference.delete());
+                                Get.to(() => const BorrowerList());
+                              },
+                              buttontext: "Yes",
+                            )
+                          ],
+                        )
+                      ],
+                    ));
+              }));
+            });
         //  Provider.of<UpdateNameProvider>(context, listen: false)
         //.update(widget.BorrowerName);
-        await deleteborrowerinstance
+        /*await deleteborrowerinstance
             .collection('lender')
             .doc(auth.currentUser?.uid)
             .collection('borrowers')
             .where('Name', isEqualTo: widget.BorrowerName)
             .get()
             .then((snapshot) => snapshot.docs.first.reference.delete());
+            */
       },
       onTap: () {
         Provider.of<UpdateNameProvider>(context, listen: false)

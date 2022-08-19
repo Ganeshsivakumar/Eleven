@@ -84,3 +84,25 @@ class _NavigationArrowState extends State<NavigationArrow> {
     );
   }
 }
+
+class ConsentButton extends StatefulWidget {
+  ConsentButton({required this.onPressed, required this.buttontext});
+  VoidCallback onPressed;
+  late String buttontext;
+
+  @override
+  State<ConsentButton> createState() => _ConsentButtonState();
+}
+
+class _ConsentButtonState extends State<ConsentButton> {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: widget.onPressed,
+        child: Text(
+          widget.buttontext,
+          style: TextStyle(color: Color(0xff607d8b)),
+        ));
+    //Text(widget.buttontext));
+  }
+}

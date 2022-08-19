@@ -60,6 +60,8 @@ class _BorrowerListState extends State<BorrowerList> {
         builder: (context) {
           return Builder(builder: (context) {
             return DialogBox(
+              // boxwidth: 300,
+              boxheight: 180,
               childwidget: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
